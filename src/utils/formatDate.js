@@ -19,3 +19,25 @@ export function formatDate(dateString) {
   const formatted = date.toLocaleDateString(undefined, options);
   return `Last updated: ${formatted}`;
 }
+
+//add date and time formatting ONLY to use in favorites page so far
+
+/**
+ * Formats an ISO date string to a human-readable date and time string.
+ *
+ * Example output: "Nov 30, 2025, 14:32"
+ *
+ * @param {string} isoString - The ISO string representing the date/time.
+ * @returns {string} A formatted date and time string. Returns an empty string if input is falsy.
+ */
+export function formatDateAndTime(isoString) {
+  if (!isoString) return "";
+  const date = new Date(isoString);
+  return date.toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
