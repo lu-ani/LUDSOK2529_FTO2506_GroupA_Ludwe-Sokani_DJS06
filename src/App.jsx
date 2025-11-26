@@ -213,11 +213,20 @@ export default function App({ podcasts: initialPodcasts = null }) {
             <SortSelect value={sort} onChange={handleSortChange} />
           </div>
 
-        <div className="ml-auto text-sm text-gray-500">
-          Showing <strong>{processed.length}</strong> result
-          {processed.length !== 1 ? "s" : ""}
-        </div>
-      </section>
+          {/* Made this a buttno instead of trying to use <link>.  */}
+          <div
+            className="ml-2 bg-black text-white px-3 py-1.5 rounded hover:bg-gray-500 transition cursor-pointer text-center"
+            onClick={() => navigate("/favorites")}
+          >
+            View Favorites
+          </div>
+
+          <div className="ml-auto text-sm text-gray-500">
+            Showing <strong>{processed.length}</strong> result
+            {processed.length !== 1 ? "s" : ""}
+          </div>
+        </section>
+      </header>
 
       {/* Podcast Grid */}
       <main className="mt-[50%] md:mt-[18%] lg:mt-[13.5%] xl:mt-[10%] p-6">
