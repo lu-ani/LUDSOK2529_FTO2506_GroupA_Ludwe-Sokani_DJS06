@@ -194,7 +194,6 @@ export default function App({ podcasts: initialPodcasts = null }) {
             <SearchBar value={search} onChange={handleSearchChange} />
           </div>
         </div>
-      </header>
 
         {/* Filters part*/}
         <section className="bg-white  py-4 flex flex-wrap items-center gap-4 shadow-sm">
