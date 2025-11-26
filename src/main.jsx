@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Components
 import App from "./App.jsx";
 import PodcastPage from "./components/PodcastPage.jsx";
+import FavoritesPage from "./pages/FavoritesPage.jsx";
 
 // Data
 import fetchPodcasts from "./api/fetchData.js";
@@ -45,10 +46,8 @@ function Root() {
         />
 
         {/* Standalone podcast page */}
-        <Route
-          path="/show/:id"
-          element={<PodcastPage podcasts={podcasts || []} />}
-        />
+        <Route path="/show/:id" element={<PodcastPage podcasts={podcasts} />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
       </Routes>
     </BrowserRouter>
   );
