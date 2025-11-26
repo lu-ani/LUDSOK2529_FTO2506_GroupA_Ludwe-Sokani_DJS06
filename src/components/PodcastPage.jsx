@@ -78,10 +78,9 @@ export default function PodcastPage({ podcasts, genres }) {
   const overview = podcasts?.find((p) => p.id === id);
 
   const title = overview?.title || details.title;
-  const image =
-    overview?.image || details.image || "https://placehold.net/default.png"; // ⭐ fallback
+  const image = overview?.image || details.image || "No Image";
   const description =
-    overview?.description || details.description || "No description available."; // ⭐ fallback
+    overview?.description || details.description || "No description available.";
   const updated = overview?.updated ? formatDate(overview.updated) : "Unknown";
   const genreTitles = getGenreTitles(overview?.genres || [], genres);
 
@@ -96,7 +95,7 @@ export default function PodcastPage({ podcasts, genres }) {
   const seasonImage = currentSeason?.image || image;
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-100 min-h-screen">
       {/* HEADER */}
       <header className="fixed w-full flex items-center justify-between bg-white px-8 py-4 shadow-sm z-[999]">
         <div className="flex items-center gap-3">
@@ -300,12 +299,13 @@ export default function PodcastPage({ podcasts, genres }) {
                   {/* Extra metadata */}
                   <div className="flex gap-6 text-xs text-gray-600 mt-2">
                     <p>{episodeDurations[i] || "Loading..."}</p>
+
                     {/* API doesn't tell us when episode was aired 
                     <p>{ep.date ? formatDate(ep.date) : "Unknown date"}</p>
                     */}
                   </div>
 
-                  {/* Audio player */}
+                  {/* Audio player  !!!REMOVE WHEN COMPONENT IS DONE !!! */}
                   {ep.file ? (
                     <audio
                       controls
