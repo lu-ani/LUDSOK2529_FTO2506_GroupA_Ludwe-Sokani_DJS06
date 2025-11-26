@@ -57,7 +57,7 @@ export default function App({ podcasts: initialPodcasts = null }) {
     setSearchParams,
   ]);
 
-  const ITEMS_PER_PAGE = 12;
+  const ITEMS_PER_PAGE = 10;
 
   /** --------------------
    * FETCH PODCASTS
@@ -179,37 +179,39 @@ export default function App({ podcasts: initialPodcasts = null }) {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
       {/* Header part*/}
-      <header className="sticky w-full flex items-center justify-between bg-white px-6 py-4 shadow-sm">
-        <div className="flex items-center space-x-3">
-          <img
-            className="h-8 w-8"
-            src="https://www.kindpng.com/picc/m/220-2202531_icon-apple-podcast-logo-hd-png-download.png"
-            alt="Podcast Logo"
-          />
-          <h1 className="text-xl font-semibold text-gray-800">PodcastApp</h1>
-        </div>
+      <header className="fixed w-full bg-white px-6 py-4 shadow-sm z-[999]">
+        <div className="flex justify-between ">
+          <div className="flex items-center space-x-3">
+            <img
+              className="h-8 w-8"
+              src="https://www.kindpng.com/picc/m/220-2202531_icon-apple-podcast-logo-hd-png-download.png"
+              alt="Podcast Logo"
+            />
+            <h1 className="text-xl font-semibold text-gray-800">PodcastApp</h1>
+          </div>
 
-        <div className="w-[40%]">
-          <SearchBar value={search} onChange={handleSearchChange} />
+          <div className="w-[40%]">
+            <SearchBar value={search} onChange={handleSearchChange} />
+          </div>
         </div>
       </header>
 
-      {/* Filters part*/}
-      <section className="bg-white px-6 py-4 flex flex-wrap items-center gap-4 shadow-sm">
-        <div className="flex items-center gap-3">
-          <span className="font-medium text-gray-700">Filter</span>
-          {/* Genre dropdown using static genreList */}
-          <GenreFilter
-            value={genre === "all" ? null : genre}
-            onChange={handleGenreChange}
-            genres={genreList}
-          />
-        </div>
+        {/* Filters part*/}
+        <section className="bg-white  py-4 flex flex-wrap items-center gap-4 shadow-sm">
+          <div className="flex items-center gap-3">
+            <span className="font-medium text-gray-700">Filter</span>
+            {/* Genre dropdown using static genreList */}
+            <GenreFilter
+              value={genre === "all" ? null : genre}
+              onChange={handleGenreChange}
+              genres={genreList}
+            />
+          </div>
 
-        <div className="flex items-center gap-3">
-          <span className="font-medium text-gray-700">Sort</span>
-          <SortSelect value={sort} onChange={handleSortChange} />
-        </div>
+          <div className="flex items-center gap-3">
+            <span className="font-medium text-gray-700">Sort</span>
+            <SortSelect value={sort} onChange={handleSortChange} />
+          </div>
 
         <div className="ml-auto text-sm text-gray-500">
           Showing <strong>{processed.length}</strong> result
@@ -218,7 +220,7 @@ export default function App({ podcasts: initialPodcasts = null }) {
       </section>
 
       {/* Podcast Grid */}
-      <main className="p-6">
+      <main className="mt-[50%] md:mt-[18%] lg:mt-[13.5%] xl:mt-[10%] p-6">
         {processed.length === 0 ? (
           <div className="text-center text-gray-600 mt-20">
             No podcasts match your criteria.
