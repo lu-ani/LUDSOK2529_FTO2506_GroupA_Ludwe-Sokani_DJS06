@@ -5,6 +5,9 @@ import { getGenreTitles } from "../utils/getGenreTitles.js";
 import { formatDate } from "../utils/formatDate.js";
 import { useLocation } from "react-router-dom";
 
+//favorites import
+import { getfavorites, togglefavorite } from "../utils/favorites.js";
+
 /**
  * Formats seconds to MM:SS
  * @param {number} seconds
@@ -40,6 +43,14 @@ export default function PodcastPage({ podcasts, genres }) {
 
   // Track durations for each episode by index
   const [episodeDurations, setEpisodeDurations] = useState({});
+
+  // looking to start adding favorite episodes
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    //forcing new reference
+    setFavorites([...getfavorites()]);
+  }, []);
 
   // Load full podcast details
   useEffect(() => {
@@ -249,6 +260,38 @@ export default function PodcastPage({ podcasts, genres }) {
                     Episode {ep.episode || i + 1}:{" "}
                     {ep.title || "Untitled Episode"}
                   </h5>
+
+                  {/*Button to add episode to favorites*/}
+                  <button
+                    className="text-xl"
+                    onClick={() => {
+                      const idKey = `${id}-S${selectedSeason}-E${
+                        ep.episode || i + 1
+                      }`;
+
+                      togglefavorite({
+                        episodeId: idKey,
+                        episode: ep,
+                        showTitle: title,
+                        seasonNumber: selectedSeason,
+                        showImage: seasonImage,
+                        addedAt: new Date().toString(),
+                      });
+
+                      // update locally
+                      setFavorites(getfavorites());
+                      //console.log("changed");
+                    }}
+                  >
+                    {/*Check to see if favorited or not for correct heart emoji. red if true, white if false*/}
+                    {favorites.some(
+                      (f) =>
+                        f.episodeId ===
+                        `${id}-S${selectedSeason}-E${ep.episode || i + 1}`
+                    )
+                      ? "❤️"
+                      : "🤍"}
+                  </button>
 
                   <p className="text-sm text-gray-700 mt-1">
                     {ep.description || "No episode description available."}
