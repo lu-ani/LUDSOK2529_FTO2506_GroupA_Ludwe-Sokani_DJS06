@@ -69,14 +69,7 @@ export default function PodcastPage({ podcasts, genres }) {
     load();
   }, [id]);
 
-  if (loading || !details) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="text-gray-600">Loading podcast...</div>
-      </div>
-    );
-  }
-
+  // Overview info from basic podcasts prop or fallback to full details
   const overview = podcasts?.find((p) => p.id === id);
 
   const title = overview?.title || details.title;
