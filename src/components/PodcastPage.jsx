@@ -351,6 +351,42 @@ export default function PodcastPage({ podcasts, genres }) {
                     <p>{episodeDurations[i] || "Loading..."}</p>
 
                     {/* API doesn't tell us when episode was aired 
+                      {/* Play button */}
+                      <button
+                        className="text-2xl mr-3"
+                        onClick={() =>
+                          playEpisode({
+                            showId: id,
+                            season: selectedSeason,
+                            episodeNumber: ep.episode || i + 1,
+                            audioUrl: ep.file,
+                            title: ep.title,
+                            image: seasonImage,
+                            showTitle: title,
+                          })
+                        }
+                      >
+                        ▶
+                      </button>
+
+                      {/* NOW PLAYING 🎵 indicator */}
+                      {currentEpisode &&
+                      currentEpisode.showId === id &&
+                      currentEpisode.season === selectedSeason &&
+                      currentEpisode.episodeNumber === (ep.episode || i + 1) ? (
+                        <span className="text-l bg-black text-white rounded p-1">
+                          Now playing
+                        </span>
+                      ) : null}
+
+                      <p className="text-sm text-gray-700 mt-1">
+                        {ep.description || "No episode description available."}
+                      </p>
+
+                      {/* Extra metadata */}
+                      <div className="flex gap-6 text-xs text-gray-600 mt-2">
+                        <p>{episodeDurations[i] || "Loading..."}</p>
+
                     <p>{ep.date ? formatDate(ep.date) : "Unknown date"}</p>
                     */}
                   </div>
