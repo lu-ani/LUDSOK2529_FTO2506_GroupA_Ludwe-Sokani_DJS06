@@ -8,7 +8,9 @@ import { useLocation } from "react-router-dom";
 //favorites import
 import { getfavorites, togglefavorite } from "../utils/favorites.js";
 
+//audio player import
 import { useAudioPlayer } from "./player/AudioPlayerProvider.jsx";
+
 /**
  * Formats seconds to MM:SS
  * @param {number} seconds - Duration in seconds
@@ -51,13 +53,25 @@ export default function PodcastPage({ podcasts, genres }) {
   /** Favorite episodes */
   const [favorites, setFavorites] = useState([]);
 
+  /** Audio player hooks */
   const { playEpisode, currentEpisode, registerEpisodes } = useAudioPlayer();
+
+  /** alternite route to determine if still loading */
   const isLoadingState = loading || !details;
+
+  /**
+   * Load favorite episodes from localStorage on component mount
+   * This ensures the favorite buttons reflect current state
+   */
   useEffect(() => {
     //forcing new reference so state updates
     setFavorites([...getfavorites()]);
   }, []);
 
+  /**
+   * Fetch full podcast details for the selected podcast
+   * Updates `details` and `loading` state
+   */
   useEffect(() => {
     async function load() {
       try {
@@ -88,6 +102,7 @@ export default function PodcastPage({ podcasts, genres }) {
   const seasons = details?.seasons || [];
   const totalSeasons = seasons?.length || "unknown";
 
+  /** Currently selected season object */
   const currentSeason = seasons.find(
     (s) => Number(s.season) === Number(selectedSeason)
   );
@@ -95,6 +110,12 @@ export default function PodcastPage({ podcasts, genres }) {
   const episodes = currentSeason?.episodes || [];
   const seasonImage = currentSeason?.image || image;
 
+  /**
+   * Loads and stores the duration for each episode in the selected season.
+   *
+   * This effect reads metadata for episode audio files (duration),
+   * without playing them or interfering with the global audio player.
+   */
   useEffect(() => {
     if (!episodes || episodes.length === 0) return;
 
@@ -126,6 +147,7 @@ export default function PodcastPage({ podcasts, genres }) {
     };
   }, [episodes]);
 
+  // Making sure the next and previous buttons work by mapping them into an object array
   useEffect(() => {
     if (!details) return; // make sure details are loaded
     if (episodes.length === 0) return; // no episodes to register
