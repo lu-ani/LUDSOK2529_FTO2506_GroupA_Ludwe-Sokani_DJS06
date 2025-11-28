@@ -124,6 +124,26 @@ export default function PodcastPage({ podcasts, genres }) {
     };
   }, [episodes]);
 
+  useEffect(() => {
+    if (!details) return; // make sure details are loaded
+    if (episodes.length === 0) return; // no episodes to register
+
+    // Format episodes for the global player
+    const formattedEpisodes = episodes.map((ep, i) => ({
+      showId: details.id,
+      season: selectedSeason,
+
+      // ensure episodeNumber exists
+      episodeNumber: ep.episode || i + 1,
+      title: ep.title || `Episode ${ep.episode || i + 1}`,
+      audioUrl: ep.file,
+      image: seasonImage,
+      showTitle: title,
+    }));
+
+    registerEpisodes(details.id, selectedSeason, formattedEpisodes);
+  }, [details, selectedSeason, episodes]);
+
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* HEADER */}
