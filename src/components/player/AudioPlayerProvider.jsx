@@ -253,3 +253,12 @@ export function AudioPlayerProvider({ children }) {
     </AudioPlayerContext.Provider>
   );
 }
+
+/**
+ * Hook to access audio player state and controls.
+ *
+ * @returns {AudioPlayerContextValue} Current audio player state and control functions
+ */
+export function useAudioPlayer() {
+  return useContext(AudioPlayerContext);
+}
