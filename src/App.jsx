@@ -16,6 +16,7 @@ import useQueryState from "./utils/useQueryState.js";
 
 // Static genre mapping
 import { genreList } from "./utils/genreMap.js";
+import RecommendedPreviewCard from "./components/RecommendedPreviewCard.jsx";
 
 /**
  * Main App component: displays podcast listings with search, filter, sort, and pagination
@@ -232,6 +233,21 @@ export default function App({ podcasts: initialPodcasts = null }) {
           </div>
         </section>
       </header>
+
+      {/*Random podcast*/}
+      <div className="flex-row overflow-x-auto overflow-y-hidden whitespace-nowrap mt-[50%] md:mt-[18%] lg:mt-[13.5%] xl:mt-[10%] ">
+        Recommended shows:
+        <div className=" flex gap-4 scale-10 p-2">
+          {randomItems.map((p) => (
+            <RecommendedPreviewCard
+              key={p.id}
+              podcast={p}
+              genres={genreList}
+              onClick={() => navigate(`/show/${p.id}`)}
+            />
+          ))}
+        </div>
+      </div>
 
       {/* Podcast Grid */}
       <main className="mt-[50%] md:mt-[18%] lg:mt-[13.5%] xl:mt-[10%] p-6">
