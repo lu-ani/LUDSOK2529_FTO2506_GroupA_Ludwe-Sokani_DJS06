@@ -100,9 +100,9 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen pb-[8%]">
+    <div className="bg-gray-100 dark:bg-slate-950 min-h-screen pb-[8%]">
       {/* HEADER */}
-      <header className="fixed w-full flex items-center justify-between bg-white px-8 py-4 shadow-sm z-[999]">
+      <header className="fixed dark:bg-slate-900 w-full flex items-center justify-between bg-white px-8 py-4 shadow-sm z-[999]">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
@@ -115,11 +115,13 @@ export default function FavoritesPage() {
             className="h-8 w-8 rounded-full"
             alt="App logo"
           />
-          <h1 className="text-xl font-semibold text-gray-900">PodcastApp</h1>
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-400">
+            PodcastApp
+          </h1>
         </div>
         {/* SORTING */}
         <select
-          className="border p-2 rounded mb-6"
+          className="border p-2 rounded mb-6 dark:bg-slate-950 dark:border-none dark:text-gray-500"
           value={sort}
           onChange={(e) => setSort(e.target.value)}
         >
@@ -131,7 +133,7 @@ export default function FavoritesPage() {
       </header>
 
       <div className="pt-[9%]">
-        <h1 className="ml-8 text-2xl ">Favorites:</h1>
+        <h1 className="ml-8 text-2xl dark:text-gray-500">Favorites:</h1>
         {/* Have message pop up when there're no favorites to keep in line with rest of site */}
         {favorites.length === 0 ? (
           <div className="text-center text-gray-600 mt-20">
@@ -146,9 +148,11 @@ export default function FavoritesPage() {
 
               return (
                 <div key={show} className="m-8">
-                  <h2 className="text-lg font-semibold mb-4">{show}</h2>
+                  <h2 className="text-lg font-semibold mb-4 dark:text-gray-400">
+                    {show}
+                  </h2>
 
-                  <div className="bg-white shadow-sm rounded-xl p-6 space-y-4 relative z-0">
+                  <div className="bg-white dark:bg-slate-900 shadow-sm rounded-xl p-6 space-y-4 relative z-0">
                     {showFavs.map((fav, i) => {
                       const isFavorite = favorites.some(
                         (f) => f.episodeId === fav.episodeId
@@ -157,7 +161,7 @@ export default function FavoritesPage() {
                       return (
                         <div
                           key={fav.episodeId}
-                          className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:shadow-md hover:scale-[1.02] flex gap-4"
+                          className="p-4 border border-gray-200 dark:bg-slate-800 dark:border-none rounded-lg hover:bg-gray-50 dark:hover:bg-slate-950 hover:shadow-md hover:scale-[1.02] flex gap-4"
                         >
                           {/* Episode thumbnail */}
                           <img
@@ -168,7 +172,7 @@ export default function FavoritesPage() {
 
                           <div className="flex-1">
                             <div className="flex justify-between items-start">
-                              <h5 className="font-semibold text-gray-900">
+                              <h5 className="font-semibold text-gray-900 dark:text-gray-400">
                                 Episode {fav.episode.episode || i + 1}:{" "}
                                 {fav.episode.title || "Untitled Episode"}
                               </h5>
@@ -202,17 +206,17 @@ export default function FavoritesPage() {
                             {currentEpisode &&
                               currentEpisode.showId === fav.showTitle &&
                               currentEpisode.episodeNumber === i + 1 && (
-                                <span className="text-l bg-black text-white rounded p-1">
+                                <span className="text-l bg-black dark:bg-slate-300 dark:text-black text-white rounded p-1">
                                   Now playing
                                 </span>
                               )}
 
-                            <p className="text-sm text-gray-700 mt-1">
+                            <p className="text-sm text-gray-700 dark:text-gray-400 mt-1">
                               {fav.episode.description ||
                                 "No episode description available."}
                             </p>
 
-                            <div className="flex gap-6 text-xs text-gray-600 mt-2">
+                            <div className="flex gap-6 text-xs text-gray-600 dark:text-gray-400 mt-2">
                               <p>Season {fav.seasonNumber}</p>
                               <p>Added {formatDateAndTime(fav.addedAt)}</p>
                             </div>

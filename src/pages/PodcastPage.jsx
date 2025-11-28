@@ -169,7 +169,7 @@ export default function PodcastPage({ podcasts, genres }) {
   }, [details, selectedSeason, episodes]);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 dark:bg-slate-950 min-h-screen">
       {isLoadingState ? (
         <div className="min-h-screen flex items-center justify-center p-6">
           <div className="text-gray-600">Loading podcast...</div>
@@ -177,7 +177,7 @@ export default function PodcastPage({ podcasts, genres }) {
       ) : (
         <>
           {/* HEADER */}
-          <header className="fixed w-full flex items-center justify-between bg-white px-8 py-4 shadow-sm z-[999]">
+          <header className="fixed dark:bg-slate-900 w-full flex items-center justify-between bg-white px-8 py-4 shadow-sm z-[999]">
             <div className="flex items-center gap-3">
               <button
                 /** Navigate back to previous page */
@@ -191,7 +191,7 @@ export default function PodcastPage({ podcasts, genres }) {
                 className="h-8 w-8 rounded-full"
                 alt="App logo"
               />
-              <h1 className="text-xl font-semibold text-gray-900">
+              <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-400">
                 PodcastApp
               </h1>
             </div>
@@ -200,7 +200,7 @@ export default function PodcastPage({ podcasts, genres }) {
           {/* MAIN CONTENT */}
           <div className="mx-auto p-6 pt-[20%] md:pt-[10%] sm:pt-[5%]">
             {/* INFO CARD */}
-            <div className="bg-white rounded-xl shadow-sm p-8 mb-10">
+            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm p-8 mb-10">
               <div className="flex flex-col md:flex-row gap-8">
                 <img
                   src={image}
@@ -208,16 +208,16 @@ export default function PodcastPage({ podcasts, genres }) {
                   className="w-full md:w-80 h-80 object-cover rounded-lg bg-gray-200"
                 />
                 <div className="flex-1">
-                  <h2 className="text-3xl font-semibold text-gray-900">
+                  <h2 className="text-3xl font-semibold text-gray-900 dark:text-zinc-400">
                     {title}
                   </h2>
-                  <p className="text-gray-700 mt-3 leading-relaxed text-[14px]">
+                  <p className="text-gray-700 mt-3 leading-relaxed text-[14px] dark:text-gray-500">
                     {description}
                   </p>
                   <div className="mt-4">
                     <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 mt-8">
                       <div>
-                        <h3 className="text-sm font-medium text-gray-900 mb-2">
+                        <h3 className="text-sm font-medium text-gray-900 dark:text-zinc-400 mb-2">
                           GENRES
                         </h3>
                         <div className="flex flex-wrap gap-2">
@@ -225,13 +225,13 @@ export default function PodcastPage({ podcasts, genres }) {
                             genreTitles.map((g) => (
                               <span
                                 key={g}
-                                className="bg-gray-200 text-gray-800 text-xs px-3 py-1 rounded-full"
+                                className="bg-gray-200 text-gray-800 dark:bg-slate-950 dark:text-slate-300 text-xs px-3 py-1 rounded-full"
                               >
                                 {g}
                               </span>
                             ))
                           ) : (
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-gray-500 dark:bg-slate-950 dark:text-slate-300">
                               No genres
                             </span>
                           )}
@@ -239,20 +239,28 @@ export default function PodcastPage({ podcasts, genres }) {
                       </div>
 
                       <div>
-                        <p className="text-xs text-gray-500">LAST UPDATED</p>
-                        <p className="font-medium text-gray-900">{updated}</p>
+                        <p className="text-sm font-medium text-gray-500 dark:text-zinc-400">
+                          LAST UPDATED
+                        </p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-gray-500">
+                          {updated}
+                        </p>
                       </div>
 
                       <div>
-                        <p className="text-xs text-gray-500">TOTAL SEASONS</p>
-                        <p className="font-medium text-gray-900">
+                        <p className="text-sm font-medium text-gray-500 dark:text-zinc-400">
+                          TOTAL SEASONS
+                        </p>
+                        <p className="font-medium text-gray-900 dark:text-gray-500">
                           {totalSeasons}
                         </p>
                       </div>
 
                       <div>
-                        <p className="text-xs text-gray-500">TOTAL EPISODES</p>
-                        <p className="font-medium text-gray-900">
+                        <p className="text-sm font-medium text-gray-500 dark:text-zinc-400">
+                          TOTAL EPISODES
+                        </p>
+                        <p className="font-medium text-gray-900 dark:text-gray-500">
                           {seasons.reduce(
                             (sum, s) => sum + (s.episodes?.length || 0),
                             0
@@ -267,14 +275,14 @@ export default function PodcastPage({ podcasts, genres }) {
 
             {/* SEASON SELECT */}
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold text-gray-900">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-zinc-400">
                 Current Season
               </h3>
             </div>
 
             {/* SEASON OVERVIEW */}
-            <div className="bg-white shadow-sm rounded-xl p-6 mb-6 gap-4 items-start">
-              <div className="bg-white p-6 flex gap-4">
+            <div className="bg-white dark:bg-slate-900 shadow-sm rounded-xl p-6 mb-6 gap-4 items-start">
+              <div className="bg-white p-6 flex gap-4 dark:bg-slate-900">
                 <img
                   src={seasonImage}
                   alt={currentSeason?.title || `Season ${selectedSeason}`}
@@ -282,7 +290,7 @@ export default function PodcastPage({ podcasts, genres }) {
                 />
 
                 <div className="flex-1">
-                  <div className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                  <div className="text-lg font-semibold text-gray-900 flex items-center gap-2 dark:text-zinc-400">
                     <span>Season :</span>
                     {/** Season select dropdown */}
                     <select
@@ -292,7 +300,7 @@ export default function PodcastPage({ podcasts, genres }) {
                         setSelectedSeason(value);
                         navigate(`?season=${value}`, { replace: true });
                       }}
-                      className=" bg-white rounded text-lg cursor-pointer"
+                      className=" bg-white rounded text-lg cursor-pointer dark:bg-slate-900"
                     >
                       {seasons.map((s) => (
                         <option key={s.season} value={s.season}>
@@ -302,12 +310,12 @@ export default function PodcastPage({ podcasts, genres }) {
                     </select>
                   </div>
 
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-sm text-gray-600 mt-1 dark:text-gray-500">
                     {currentSeason?.description ||
                       "No season description available."}
                   </p>
 
-                  <div className="flex gap-6 mt-3 text-sm text-gray-700">
+                  <div className="flex gap-6 mt-3 text-sm text-gray-700 dark:text-gray-500">
                     <p>
                       <span className="font-medium">{episodes.length}</span>{" "}
                       Episodes
@@ -325,7 +333,7 @@ export default function PodcastPage({ podcasts, genres }) {
               </div>
 
               {/* EPISODE LIST */}
-              <div className="bg-white shadow-sm rounded-xl p-6 space-y-4 relative z-0">
+              <div className="bg-white dark:bg-slate-800 shadow-sm rounded-xl p-6 space-y-4 relative z-0">
                 {episodes.length === 0 && (
                   <p className="text-gray-500 text-sm italic">
                     No episodes available.
@@ -335,7 +343,7 @@ export default function PodcastPage({ podcasts, genres }) {
                 {episodes.map((ep, i) => (
                   <div
                     key={i}
-                    className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:shadow-md hover:scale-[1.02] flex gap-4"
+                    className="p-4 border border-gray-200 rounded-lg dark:bg-slate-900 dark:border-none hover:bg-gray-50 hover:dark:bg-slate-950 hover:shadow-md hover:scale-[1.02] flex gap-4"
                   >
                     {/* Episode thumbnail */}
                     <img
@@ -346,7 +354,7 @@ export default function PodcastPage({ podcasts, genres }) {
 
                     <div className="flex-1">
                       <div className="flex justify-between">
-                        <h5 className="font-semibold text-gray-900">
+                        <h5 className="font-semibold text-gray-900 dark:text-gray-500">
                           Episode {ep.episode || i + 1}:{" "}
                           {ep.title || "Untitled Episode"}
                         </h5>
@@ -407,17 +415,17 @@ export default function PodcastPage({ podcasts, genres }) {
                       currentEpisode.showId === id &&
                       currentEpisode.season === selectedSeason &&
                       currentEpisode.episodeNumber === (ep.episode || i + 1) ? (
-                        <span className="text-l bg-black text-white rounded p-1">
+                        <span className="text-l bg-black dark:bg-slate-300 dark:text-black text-white rounded p-1">
                           Now playing
                         </span>
                       ) : null}
 
-                      <p className="text-sm text-gray-700 mt-1">
+                      <p className="text-sm text-gray-700 dark:text-gray-500 mt-1">
                         {ep.description || "No episode description available."}
                       </p>
 
                       {/* Extra metadata */}
-                      <div className="flex gap-6 text-xs text-gray-600 mt-2">
+                      <div className="flex gap-6 text-xs text-gray-600 dark:text-gray-500 mt-2">
                         <p>{episodeDurations[i] || "Loading..."}</p>
 
                         {/* API doesn't tell us when episode was aired 

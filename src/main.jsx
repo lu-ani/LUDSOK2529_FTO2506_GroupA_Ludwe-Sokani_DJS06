@@ -13,6 +13,9 @@ import fetchPodcasts from "./api/fetchData.js";
 import { AudioPlayerProvider } from "./components/player/AudioPlayerProvider.jsx";
 import GlobalPlayer from "./components/player/GlobalPlayer.jsx";
 
+//trying to fix dark mode issues
+import "../tailwind.css";
+
 function Root() {
   const [podcasts, setPodcasts] = useState(null); // null means "not loaded yet"
 

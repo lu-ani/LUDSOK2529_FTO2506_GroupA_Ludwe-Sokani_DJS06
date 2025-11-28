@@ -24,7 +24,7 @@ export default function GlobalPlayer() {
     currentEpisode;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-xl p-4 flex items-center gap-4 z-[9999]">
+    <div className="fixed dark:bg-slate-900 bottom-0 left-0 right-0 bg-white shadow-xl p-4 flex items-center gap-4 z-[9999]">
       {/* Left clickable show/episode info */}
       <Link
         to={`/show/${showId}?season=${season}`}
@@ -36,31 +36,33 @@ export default function GlobalPlayer() {
           alt="Episode artwork"
         />
         <div>
-          <p className="font-semibold">{title}</p>
-          <p className="text-sm text-gray-600">{showTitle}</p>
+          <p className="font-semibold dark:text-slate-300">{title}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-500">
+            {showTitle}
+          </p>
         </div>
       </Link>
 
       {/* Buttons */}
-      <div className="flex justify-between w-[20%] mr-[10%]">
+      <div className="flex justify-between w-[20%] mr-[10%] rounded-lg dark:bg-slate-950">
         {/* PREVIOUS BUTTON */}
         <button
           onClick={prevEpisode}
-          className="text-xl p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="text-xl p-2 rounded-full hover:bg-gray-300"
         >
           ⏮
         </button>
         {/* Play/Pause */}
         <button
           onClick={togglePlay}
-          className=" text-2xl p-2 rounded-full bg-black text-white"
+          className=" text-2xl p-2 rounded-full text-white"
         >
           {isPlaying ? "⏸" : "▶"}
         </button>
         {/* NEXT BUTTON */}
         <button
           onClick={nextEpisode}
-          className="text-xl p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="text-xl p-2 rounded-full hover:bg-gray-300"
         >
           ⏭
         </button>

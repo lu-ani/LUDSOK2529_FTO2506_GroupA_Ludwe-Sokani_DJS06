@@ -10,7 +10,7 @@ export default function PodcastPreviewCard({ podcast, genres, onClick }) {
 
   return (
     <div
-      className="bg-white rounded-xl p-4 shadow-sm transition-all duration-200 ease-in-out cursor-pointer flex flex-col gap-2 hover:shadow-md hover:scale-[1.02]"
+      className="dark:bg-slate-900 bg-white rounded-xl p-4 shadow-sm transition-all duration-200 ease-in-out cursor-pointer flex flex-col gap-2 hover:shadow-md hover:scale-[1.02]"
       onClick={() => onClick(podcast)}
     >
       <img
@@ -18,13 +18,17 @@ export default function PodcastPreviewCard({ podcast, genres, onClick }) {
         alt={podcast.title}
         className="w-full h-full object-cover rounded-lg bg-gray-200"
       />
-      <h2 className="font-semibold text-gray-800 text-lg">{podcast.title}</h2>
-      <p className="text-gray-600 text-sm">📅 {podcast.seasons} seasons</p>
+      <h2 className="font-semibold text-gray-800 dark:text-slate-300 text-lg">
+        {podcast.title}
+      </h2>
+      <p className="text-gray-600 dark:text-slate-300 text-sm">
+        📅 {podcast.seasons} seasons
+      </p>
       <div className="flex flex-wrap gap-1">
         {genreTitles.map((g) => (
           <span
             key={g}
-            className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-full"
+            className="bg-gray-100 dark:bg-slate-950 dark:text-slate-300 text-gray-700 text-xs px-2 py-1 rounded-full"
           >
             {g}
           </span>

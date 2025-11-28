@@ -20,7 +20,7 @@ export default function Pagination({ page, totalPages, onChange }) {
         <li>
           <button
             onClick={() => onChange(Math.max(1, page - 1))}
-            className="px-3 py-1 border rounded-md text-sm"
+            className="dark:bg-slate-700 px-3 py-1 border  rounded-md text-sm"
             disabled={page === 1}
           >
             Prev
@@ -32,7 +32,9 @@ export default function Pagination({ page, totalPages, onChange }) {
             <button
               onClick={() => onChange(p)}
               className={`px-3 py-1 border rounded-md text-sm ${
-                p === page ? "bg-gray-800 text-white" : "bg-white"
+                p === page
+                  ? "bg-gray-800 text-white"
+                  : "dark:bg-gray-500 bg-white"
               }`}
               aria-current={p === page ? "page" : undefined}
             >
@@ -44,7 +46,7 @@ export default function Pagination({ page, totalPages, onChange }) {
         <li>
           <button
             onClick={() => onChange(Math.min(totalPages, page + 1))}
-            className="px-3 py-1 border rounded-md text-sm"
+            className="dark:bg-slate-700 px-3 py-1 border rounded-md text-sm"
             disabled={page === totalPages}
           >
             Next

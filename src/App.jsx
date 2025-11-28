@@ -18,6 +18,9 @@ import useQueryState from "./utils/useQueryState.js";
 import { genreList } from "./utils/genreMap.js";
 import RecommendedPreviewCard from "./components/RecommendedPreviewCard.jsx";
 
+//theme toggle
+import ThemeToggle from "./components/ThemeToggle.jsx";
+
 /**
  * Main App component: displays podcast listings with search, filter, sort, and pagination
  *
@@ -59,6 +62,11 @@ export default function App({ podcasts: initialPodcasts = null }) {
   ]);
 
   const ITEMS_PER_PAGE = 10;
+
+  //dark mode
+  const [dark, setDark] = useState(
+    () => localStorage.getItem("theme") === "dark"
+  );
 
   /** --------------------
    * FETCH PODCASTS
@@ -184,9 +192,9 @@ export default function App({ podcasts: initialPodcasts = null }) {
    * MAIN RENDER
    * ------------------- */
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col mb-[7%]">
+    <div className="bg-gray-100 dark:bg-slate-950 min-h-screen flex flex-col mb-[7%]">
       {/* Header part*/}
-      <header className="fixed w-full bg-white px-6 py-4 shadow-sm z-[999]">
+      <header className="fixed w-full dark:bg-slate-900 bg-white px-6 py-4 shadow-sm z-[999]">
         <div className="flex justify-between ">
           <div className="flex items-center space-x-3">
             <img
@@ -194,7 +202,9 @@ export default function App({ podcasts: initialPodcasts = null }) {
               src="https://www.kindpng.com/picc/m/220-2202531_icon-apple-podcast-logo-hd-png-download.png"
               alt="Podcast Logo"
             />
-            <h1 className="text-xl font-semibold text-gray-800">PodcastApp</h1>
+            <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-400">
+              PodcastApp
+            </h1>
           </div>
 
           <div className="w-[40%]">
@@ -203,7 +213,7 @@ export default function App({ podcasts: initialPodcasts = null }) {
         </div>
 
         {/* Filters part*/}
-        <section className="bg-white  py-4 flex flex-wrap items-center gap-4 shadow-sm">
+        <section className="bg-white dark:bg-slate-900  py-4 flex flex-wrap items-center gap-4 shadow-sm">
           <div className="flex items-center gap-3">
             <span className="font-medium text-gray-700">Filter</span>
             {/* Genre dropdown using static genreList */}
@@ -221,11 +231,14 @@ export default function App({ podcasts: initialPodcasts = null }) {
 
           {/* Made this a buttno instead of trying to use <link>.  */}
           <div
-            className="ml-2 bg-black text-white px-3 py-1.5 rounded hover:bg-gray-500 transition cursor-pointer text-center"
+            className="ml-2 bg-black text-white dark:text-gray-400 dark:hover:text-black px-3 py-1.5 rounded hover:bg-gray-500 transition cursor-pointer text-center"
             onClick={() => navigate("/favorites")}
           >
             View Favorites
           </div>
+
+          {/* Theme toggle */}
+          <ThemeToggle dark={dark} setDark={setDark} />
 
           <div className="ml-auto text-sm text-gray-500">
             Showing <strong>{processed.length}</strong> result
