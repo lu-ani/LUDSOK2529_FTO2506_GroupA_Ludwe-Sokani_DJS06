@@ -10,8 +10,8 @@ import { getfavorites, togglefavorite } from "../utils/favorites.js";
 
 /**
  * Formats seconds to MM:SS
- * @param {number} seconds
- * @returns {string} formatted duration
+ * @param {number} seconds - Duration in seconds
+ * @returns {string} formatted duration as "MM:SS"
  */
 function formatDuration(seconds) {
   if (!seconds || isNaN(seconds)) return "0:00";
@@ -22,7 +22,7 @@ function formatDuration(seconds) {
 
 /**
  * PodcastPage component displays detailed information about a single podcast,
- * including seasons and episodes with audio playback and accurate durations.
+ * including seasons and episodes with audio playback, favorites, and accurate durations.
  *
  * @param {{podcasts: Array, genres: Array}} props
  * @returns {JSX.Element}
@@ -31,28 +31,30 @@ export default function PodcastPage({ podcasts, genres }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  /** Full podcast details from API */
   const [details, setDetails] = useState(null);
+  /** Loading state while fetching podcast details */
   const [loading, setLoading] = useState(true);
 
-  //season logic
+  // Season logic
   const location = useLocation();
   const params = new URLSearchParams(location.search);
 
+  /** Initial season from URL query or default to 1 */
   const initialSeason = Number(params.get("season")) || 1;
   const [selectedSeason, setSelectedSeason] = useState(initialSeason);
 
-  // Track durations for each episode by index
+  /** Track durations for each episode by index */
   const [episodeDurations, setEpisodeDurations] = useState({});
 
-  // looking to start adding favorite episodes
+  /** Favorite episodes */
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    //forcing new reference
+    //forcing new reference so state updates
     setFavorites([...getfavorites()]);
   }, []);
 
-  // Load full podcast details
   useEffect(() => {
     async function load() {
       try {
