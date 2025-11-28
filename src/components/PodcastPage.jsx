@@ -354,7 +354,6 @@ export default function PodcastPage({ podcasts, genres }) {
                     <p>{ep.date ? formatDate(ep.date) : "Unknown date"}</p>
                     */}
                   </div>
-
                   {/* Audio player  !!!REMOVE WHEN COMPONENT IS DONE !!! */}
                   {ep.file ? (
                     <audio
