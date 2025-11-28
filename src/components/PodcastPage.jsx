@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 //favorites import
 import { getfavorites, togglefavorite } from "../utils/favorites.js";
 
+import { useAudioPlayer } from "./player/AudioPlayerProvider.jsx";
 /**
  * Formats seconds to MM:SS
  * @param {number} seconds - Duration in seconds
@@ -50,6 +51,7 @@ export default function PodcastPage({ podcasts, genres }) {
   /** Favorite episodes */
   const [favorites, setFavorites] = useState([]);
 
+  const { playEpisode, currentEpisode, registerEpisodes } = useAudioPlayer();
   const isLoadingState = loading || !details;
   useEffect(() => {
     //forcing new reference so state updates
