@@ -61,6 +61,28 @@ export default function FavoritesPage() {
     return a.localeCompare(b); // default
   });
 
+  /** Register episodes for audio player whenever sort or favorites change */
+  useEffect(() => {
+    // Re-register episodes whenever sort changes or favorites change
+    Object.keys(grouped).forEach((showTitle) => {
+      const showFavs = sortFavorites(grouped[showTitle]); // sorted according to current sort
+
+      const formatted = showFavs.map((fav, i) => ({
+        showId: fav.showTitle,
+        season: fav.seasonNumber,
+        episodeNumber: i + 1,
+        title: fav.episode.title,
+        audioUrl: fav.episode.file,
+        image: fav.showImage,
+        showTitle: fav.showTitle,
+        favId: fav.episodeId,
+      }));
+
+      // Register episodes exactly as currently displayed
+      registerEpisodes(showTitle, showFavs[0]?.season || 1, formatted);
+    });
+  }, [sort, favorites]);
+
   /**
    * Handles toggling a favorite episode.
    * Updates local storage and refreshes the local state.
