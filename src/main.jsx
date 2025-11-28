@@ -9,6 +9,9 @@ import FavoritesPage from "./pages/FavoritesPage.jsx";
 
 // Data
 import fetchPodcasts from "./api/fetchData.js";
+/// Audio player stuff
+import { AudioPlayerProvider } from "./components/player/AudioPlayerProvider.jsx";
+import GlobalPlayer from "./components/player/GlobalPlayer.jsx";
 
 function Root() {
   const [podcasts, setPodcasts] = useState(null); // null means "not loaded yet"
@@ -36,20 +39,26 @@ function Root() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Main podcast listing page */}
-        <Route path="/" element={<App podcasts={podcasts} />} />
-        <Route
-          path="/genre/:genreId/page/:pageNum"
-          element={<App podcasts={podcasts} />}
-        />
+    <AudioPlayerProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Main podcast listing page */}
+          <Route path="/" element={<App podcasts={podcasts} />} />
+          <Route
+            path="/genre/:genreId/page/:pageNum"
+            element={<App podcasts={podcasts} />}
+          />
 
-        {/* Standalone podcast page */}
-        <Route path="/show/:id" element={<PodcastPage podcasts={podcasts} />} />
-        <Route path="/favorites" element={<FavoritesPage />} />
-      </Routes>
-    </BrowserRouter>
+          {/* Standalone podcast page */}
+          <Route
+            path="/show/:id"
+            element={<PodcastPage podcasts={podcasts} />}
+          />
+          <Route path="/favorites" element={<FavoritesPage />} />
+        </Routes>
+        <GlobalPlayer></GlobalPlayer>
+      </BrowserRouter>
+    </AudioPlayerProvider>
   );
 }
 
