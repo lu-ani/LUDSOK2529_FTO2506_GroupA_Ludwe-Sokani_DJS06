@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { getfavorites, togglefavorite } from "../utils/favorites.js";
 
 //audio player import
-import { useAudioPlayer } from "./player/AudioPlayerProvider.jsx";
+import { useAudioPlayer } from "../components/player/AudioPlayerProvider.jsx";
 
 /**
  * Formats seconds to MM:SS
