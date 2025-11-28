@@ -354,36 +354,7 @@ export default function PodcastPage({ podcasts, genres }) {
                     <p>{ep.date ? formatDate(ep.date) : "Unknown date"}</p>
                     */}
                   </div>
-                  {/* Audio player  !!!REMOVE WHEN COMPONENT IS DONE !!! */}
-                  {ep.file ? (
-                    <audio
-                      controls
-                      src={ep.file}
-                      className="mt-2 w-full"
-                      onLoadedMetadata={(e) => {
-                        const duration = e.target.duration;
-                        if (!isNaN(duration)) {
-                          setEpisodeDurations((prev) => ({
-                            ...prev,
-                            [i]: formatDuration(duration),
-                          }));
-                        }
-                      }}
-                      onError={() => {
-                        setEpisodeDurations((prev) => ({
-                          ...prev,
-                          [i]: "Unknown length", // fallback if file info can't load. don't remove when i get it working
-                        }));
-                      }}
-                    >
-                      Your browser does not support the audio element.
-                    </audio>
-                  ) : (
-                    <p className="text-xs text-gray-500 mt-2">
-                      Audio not available.
-                    </p>
-                  )}
-                </div>
+                ))}
               </div>
             ))}
           </div>
