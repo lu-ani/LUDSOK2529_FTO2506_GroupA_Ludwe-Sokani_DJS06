@@ -72,15 +72,18 @@ export default function PodcastPage({ podcasts, genres }) {
   // Overview info from basic podcasts prop or fallback to full details
   const overview = podcasts?.find((p) => p.id === id);
 
-  const title = overview?.title || details.title;
-  const image = overview?.image || details.image || "No Image";
+  const title = overview?.title || details?.title || "Untitled Podcast";
+  const image = overview?.image || details?.image || "No Image";
   const description =
-    overview?.description || details.description || "No description available.";
+    overview?.description ||
+    details?.description ||
+    "No description available.";
   const updated = overview?.updated ? formatDate(overview.updated) : "Unknown";
   const genreTitles = getGenreTitles(overview?.genres || [], genres);
 
-  const seasons = details.seasons || [];
-  const totalSeasons = seasons.length;
+  // had to optional chain for all the ar
+  const seasons = details?.seasons || [];
+  const totalSeasons = seasons?.length || "unknown";
 
   const currentSeason = seasons.find(
     (s) => Number(s.season) === Number(selectedSeason)
