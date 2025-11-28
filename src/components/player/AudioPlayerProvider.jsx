@@ -10,9 +10,32 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
  * @property {string} image - Episode or season artwork.
  * @property {string} showTitle - Podcast show title.
  */
+
+/**
+ * @typedef {Object} AudioPlayerContextValue
+ * @property {EpisodeData|null} currentEpisode - Currently active episode, null if none.
+ * @property {boolean} isPlaying - Whether audio is currently playing.
+ * @property {number} progress - Current playback time in seconds.
+ * @property {number} duration - Total duration of the episode in seconds.
+ * @property {(episode: EpisodeData) => void} playEpisode - Play a specific episode immediately.
+ * @property {() => void} togglePlay - Toggle play/pause for the current episode.
+ * @property {(sec: number) => void} seek - Jump to a specific time in the current episode.
+ */
+
 const AudioPlayerContext = createContext(null);
 
+/**
+ * Global registry storing episode lists for each show & season.
+ *
+ * Structure:
+ * {
+ *   [showId]: {
+ *     [seasonNumber]: [ EpisodeData, EpisodeData, ... ]
+ *   }
+ * }
+ */
 const EPISODE_REGISTRY = {};
+
 /**
  * Global persistent audio player provider.
  * Wrap your entire <App /> so player never unmounts between page transitions.
