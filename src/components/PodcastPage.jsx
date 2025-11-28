@@ -50,6 +50,7 @@ export default function PodcastPage({ podcasts, genres }) {
   /** Favorite episodes */
   const [favorites, setFavorites] = useState([]);
 
+  const isLoadingState = loading || !details;
   useEffect(() => {
     //forcing new reference so state updates
     setFavorites([...getfavorites()]);
