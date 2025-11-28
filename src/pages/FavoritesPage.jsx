@@ -136,80 +136,89 @@ export default function FavoritesPage() {
         ) : (
           <>
             {/* GROUPS */}
-            {sortedShows.map((show) => (
-              <div key={show} className="m-8">
-                <h2 className="text-lg font-semibold mb-4">{show}</h2>
+            {sortedShows.map((show) => {
+              const showFavs = sortFavorites(grouped[show]); // compute once per show
 
-                <div className="bg-white shadow-sm rounded-xl p-6 space-y-4 relative z-0">
-                  {sortFavorites(grouped[show]).map((fav, i) => {
-                    const idKey = fav.episodeId;
+              return (
+                <div key={show} className="m-8">
+                  <h2 className="text-lg font-semibold mb-4">{show}</h2>
 
-                    /**
-                     * Works better to just create an isFavorite check here instead of the one in favorites.js.
-                     * @type {boolean}
-                     */
-                    const isFavorite = favorites.some(
-                      (f) => f.episodeId === idKey
-                    );
+                  <div className="bg-white shadow-sm rounded-xl p-6 space-y-4 relative z-0">
+                    {showFavs.map((fav, i) => {
+                      const isFavorite = favorites.some(
+                        (f) => f.episodeId === fav.episodeId
+                      );
 
-                    return (
-                      <div
-                        key={idKey}
-                        className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:shadow-md hover:scale-[1.02] flex gap-4"
-                      >
-                        {/* Episode thumbnail */}
-                        <img
-                          src={fav.showImage}
-                          alt={fav.episode.title || `Episode ${i + 1}`}
-                          className="w-24 h-24 object-cover rounded-lg bg-gray-200"
-                        />
+                      return (
+                        <div
+                          key={fav.episodeId}
+                          className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:shadow-md hover:scale-[1.02] flex gap-4"
+                        >
+                          {/* Episode thumbnail */}
+                          <img
+                            src={fav.showImage}
+                            alt={fav.episode.title || `Episode ${i + 1}`}
+                            className="w-24 h-24 object-cover rounded-lg bg-gray-200"
+                          />
 
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start">
-                            <h5 className="font-semibold text-gray-900">
-                              Episode {fav.episode.episode || i + 1}:{" "}
-                              {fav.episode.title || "Untitled Episode"}
-                            </h5>
+                          <div className="flex-1">
+                            <div className="flex justify-between items-start">
+                              <h5 className="font-semibold text-gray-900">
+                                Episode {fav.episode.episode || i + 1}:{" "}
+                                {fav.episode.title || "Untitled Episode"}
+                              </h5>
 
+                              <button
+                                className="text-xl"
+                                onClick={() => handleToggle(fav)}
+                              >
+                                {isFavorite ? "❤️" : "🤍"}
+                              </button>
+                            </div>
+                            {/* Play button */}
                             <button
-                              className="text-xl"
-                              onClick={() => handleToggle(fav)}
+                              className="text-2xl mr-3"
+                              onClick={() =>
+                                playEpisode({
+                                  showId: fav.showTitle,
+                                  season: fav.seasonNumber,
+                                  episodeNumber: i + 1, // index in current visual order
+                                  audioUrl: fav.episode.file,
+                                  title: fav.episode.title,
+                                  image: fav.showImage,
+                                  showTitle: fav.showTitle,
+                                })
+                              }
                             >
-                              {isFavorite ? "❤️" : "🤍"}
+                              ▶
                             </button>
-                          </div>
 
-                          <p className="text-sm text-gray-700 mt-1">
-                            {fav.episode.description ||
-                              "No episode description available."}
-                          </p>
+                            {/* NOW PLAYING indicator */}
+                            {currentEpisode &&
+                              currentEpisode.showId === fav.showTitle &&
+                              currentEpisode.episodeNumber === i + 1 && (
+                                <span className="text-l bg-black text-white rounded p-1">
+                                  Now playing
+                                </span>
+                              )}
 
-                          <div className="flex gap-6 text-xs text-gray-600 mt-2">
-                            <p>Season {fav.seasonNumber}</p>
-                            <p>Added {formatDateAndTime(fav.addedAt)}</p>
-                          </div>
-
-                          {/* Audio player if available. !!!REMOVE WHEN COMPONENT IS DONE !!! */}
-                          {fav.episode.file ? (
-                            <audio
-                              controls
-                              src={fav.episode.file}
-                              className="mt-2 w-full"
-                            >
-                              Your browser does not support the audio element.
-                            </audio>
-                          ) : (
-                            <p className="text-xs text-gray-500 mt-2">
-                              Audio not available.
+                            <p className="text-sm text-gray-700 mt-1">
+                              {fav.episode.description ||
+                                "No episode description available."}
                             </p>
-                          )}
+
+                            <div className="flex gap-6 text-xs text-gray-600 mt-2">
+                              <p>Season {fav.seasonNumber}</p>
+                              <p>Added {formatDateAndTime(fav.addedAt)}</p>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </>
         )}
       </div>
