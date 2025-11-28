@@ -93,6 +93,37 @@ export default function PodcastPage({ podcasts, genres }) {
   const episodes = currentSeason?.episodes || [];
   const seasonImage = currentSeason?.image || image;
 
+  useEffect(() => {
+    if (!episodes || episodes.length === 0) return;
+
+    const loaders = episodes.map((ep, index) => {
+      if (!ep.file) return null;
+
+      const audio = new Audio(ep.file);
+
+      const handleLoadedMetadata = () => {
+        setEpisodeDurations((prev) => ({
+          ...prev,
+          [index]: formatDuration(audio.duration),
+        }));
+      };
+
+      audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+
+      return { audio, handleLoadedMetadata };
+    });
+
+    return () => {
+      loaders.forEach((entry) => {
+        if (!entry) return;
+        entry.audio.removeEventListener(
+          "loadedmetadata",
+          entry.handleLoadedMetadata
+        );
+      });
+    };
+  }, [episodes]);
+
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* HEADER */}
