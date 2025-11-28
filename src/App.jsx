@@ -177,7 +177,7 @@ export default function App({ podcasts: initialPodcasts = null }) {
    * MAIN RENDER
    * ------------------- */
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col">
+    <div className="bg-gray-100 min-h-screen flex flex-col mb-[7%]">
       {/* Header part*/}
       <header className="fixed w-full bg-white px-6 py-4 shadow-sm z-[999]">
         <div className="flex justify-between ">
