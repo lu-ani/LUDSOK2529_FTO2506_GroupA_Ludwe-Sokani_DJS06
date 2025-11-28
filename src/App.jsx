@@ -123,6 +123,12 @@ export default function App({ podcasts: initialPodcasts = null }) {
     page * ITEMS_PER_PAGE
   );
 
+  // Shuffle array randomly
+  const shuffledItems = [...visibleItems].sort(() => 0.5 - Math.random());
+
+  //picking the first 10
+  const randomItems = shuffledItems.slice(0, 10);
+
   /** --------------------
    * NAVIGATION HANDLERS
    * ------------------- */
