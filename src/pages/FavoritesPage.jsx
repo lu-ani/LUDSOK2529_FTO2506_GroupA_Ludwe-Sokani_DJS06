@@ -1,10 +1,12 @@
 import { getfavorites, togglefavorite } from "../utils/favorites.js";
 import { formatDateAndTime } from "../utils/formatDate.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-// !!!! trying to carry over definitions from favorites.js .. not working will try again later
+//for PLay button
+import { useAudioPlayer } from "../components/player/AudioPlayerProvider.jsx";
 
+// !!!! trying to carry over definitions from favorites.js .. not working will try again later
 /**
  * @typedef {import("../utils/favorites.js").Favorite} Favorite
  */
@@ -24,6 +26,9 @@ export default function FavoritesPage() {
 
   // Working on navigation
   const navigate = useNavigate();
+
+  // Working on adding play button here.
+  const { playEpisode, currentEpisode, registerEpisodes } = useAudioPlayer();
 
   /** Group favorite episodes by show title */
   const grouped = favorites.reduce((acc, fav) => {
@@ -95,7 +100,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen pb-[8%]">
       {/* HEADER */}
       <header className="fixed w-full flex items-center justify-between bg-white px-8 py-4 shadow-sm z-[999]">
         <div className="flex items-center gap-3">
