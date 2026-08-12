@@ -1,0 +1,10 @@
+#Gihub will ignore these files and folders:
+
+# Environment variables and secrets
+.env
+
+# Python virtual environment
+venv/
+
+# Python cache files
+__pycache__/
